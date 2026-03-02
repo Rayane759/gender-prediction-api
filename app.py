@@ -3,7 +3,7 @@ import joblib
 import numpy as np
 
 app = FastAPI()
-model = joblib.load("model.joblib")
+model = joblib.load("logistic_regression_model.joblib")
 feature_names = joblib.load("feature_names.joblib")
 
 @app.get("/")

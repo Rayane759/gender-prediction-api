@@ -1,0 +1,8 @@
+google-cloud-bigquery
+pandas
+db-dtypes
+scikit-learn
+joblib
+uvicorn
+fastapi[standard]
+matplotlib
