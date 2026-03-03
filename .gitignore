@@ -3,3 +3,9 @@ venv/
 .env/
 __pycache__/
 .env
+
+# terraform
+.terraform.lock.hcl
+.terraform/
+*.tfstate
+*.tfstate.*
