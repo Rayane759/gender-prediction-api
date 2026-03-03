@@ -7,8 +7,10 @@ app = FastAPI()
 model = joblib.load("logistic_regression_model.joblib")
 feature_names = joblib.load("feature_names.joblib")
 
-OLLAMA_API_URL = "http://146.148.125.199:11434/api/generate"
-OLLAMA_MODEL = "llama3.2:1b"
+import os
+
+OLLAMA_API_URL = os.environ.get("OLLAMA_API_URL", "http://146.148.125.199:11434/api/generate")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2:1b")
 
 
 @app.get("/")
