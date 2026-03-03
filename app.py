@@ -9,8 +9,17 @@ feature_names = joblib.load("feature_names.joblib")
 
 import os
 
+# database setup
+import database  # module handling DB operations
+
 OLLAMA_API_URL = os.environ.get("OLLAMA_API_URL", "http://146.148.125.199:11434/api/generate")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2:1b")
+
+
+@app.on_event("startup")
+def startup_event():
+    # ensure the table exists when the application starts
+    database.init_db()
 
 
 @app.get("/")
@@ -42,6 +51,9 @@ def predict_with_sklearn(name: str):
     prediction = model.predict(X_array)[0]
     gender = 'M' if prediction == 0 else 'F'
 
+    # no confidence value from sklearn model, leave as None
+    database.insert_prediction(name, gender, None)
+
     return {
         "name": name,
         "gender": gender,
@@ -68,9 +80,18 @@ def predict_with_ollama(name: str):
         # Extract M or F from the response
         gender = "M" if "M" in generated_text else ("F" if "F" in generated_text else "Unknown")
         
-        return {
+        result_data = {
             "name": name,
             "gender": gender,
         }
+        database.insert_prediction(name, gender, None)
+        return result_data
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Error calling Ollama API: {str(e)}")
+
+
+@app.get("/history")
+def history():
+    """Return the 10 most recent predictions from the database."""
+    rows = database.get_recent_predictions(limit=10)
+    return {"history": rows}
