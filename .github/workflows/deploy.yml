@@ -7,7 +7,7 @@ on:
 env:
   PROJECT_ID: ensai-2026
   REGION: europe-west1
-  SERVICE_NAME: gender-prediction-api
+  SERVICE_NAME: prenoms
   IMAGE: docker.io/guenolee/prenoms
 
 jobs:
