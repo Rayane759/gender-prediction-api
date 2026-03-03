@@ -9,7 +9,7 @@ feature_names = joblib.load("feature_names.joblib")
 
 @app.get("/")
 def root():
-    return {"message": "Gender Prediction API is running, but it's new"}
+    return {"message": "Gender Prediction API is running, but it's even newer"}
 
 
 @app.get("/predict")
