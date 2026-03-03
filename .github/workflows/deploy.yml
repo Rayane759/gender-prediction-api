@@ -8,7 +8,7 @@ env:
   PROJECT_ID: ensai-2026
   REGION: europe-west1
   SERVICE_NAME: gender-prediction-api
-  IMAGE: europe-west1-docker.pkg.dev/ensai-2026/prenoms
+  IMAGE: europe-west1-docker.pkg.dev/ensai-2026/prenoms/gender-prediction-api
 
 jobs:
   deploy:
